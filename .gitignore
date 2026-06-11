@@ -1,0 +1,35 @@
+# Segredos — NUNCA versionar (premissa inegociável nº 3)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Dados brutos (baixados via scripts/baixar_documentos.py — não redistribuídos)
+data/raw/
+
+# Índices regeneráveis
+data/index/
+.chroma/
+
+# Cache de embeddings
+data/cache/
+
+# IDE / SO
+.vscode/
+.idea/
+*.swp
+.DS_Store
