@@ -3,7 +3,8 @@
 Garante que o gabarito está ancorado no corpus REAL:
 (a) schema e ids únicos; (b) toda fonte esperada resolve para chunk existente;
 (c) todo número afirmativo da resposta de referência consta no texto cru de algum
-chunk esperado; (d) estratificação (30 itens, 5 p/ revisão humana, sem_base coerente).
+chunk esperado; (d) estratificação: 30 itens, sem_base coerente e 5 itens na amostra
+de revisão — após revisados, carregam `revisado: "ok" | "corrigido"` (plano_eval §1).
 """
 
 from __future__ import annotations
@@ -41,6 +42,11 @@ def validar() -> list[str]:
         erros.append("ids duplicados no golden")
     if sum(1 for g in golden if g["revisao_humana"]) != 5:
         erros.append("deve haver exatamente 5 itens com revisao_humana=true")
+    for g in golden:
+        if g.get("revisado") not in (None, "ok", "corrigido"):
+            erros.append(f"{g.get('id', '?')}: revisado deve ser 'ok' ou 'corrigido'")
+        elif g.get("revisado") and not g.get("revisao_humana"):
+            erros.append(f"{g.get('id', '?')}: revisado só se aplica à amostra de revisão")
 
     for item in golden:
         rid = item.get("id", "?")
@@ -80,7 +86,11 @@ def main() -> int:
     golden = carregar_golden()
     n_sem_base = sum(1 for g in golden if g["categoria"] == "sem_base")
     n_rev = sum(1 for g in golden if g["revisao_humana"])
-    print(f"golden: {len(golden)} itens | sem_base: {n_sem_base} | revisão humana: {n_rev}")
+    n_pend = sum(1 for g in golden if g["revisao_humana"] and not g.get("revisado"))
+    print(
+        f"golden: {len(golden)} itens | sem_base: {n_sem_base} | "
+        f"amostra de revisão: {n_rev} (pendentes: {n_pend})"
+    )
     if erros:
         print(f"\n✗ {len(erros)} erro(s):")
         for e in erros:
