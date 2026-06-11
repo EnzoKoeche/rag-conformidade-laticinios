@@ -1,10 +1,19 @@
 # rag-conformidade-laticinios
 
+[![Demo ao vivo](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://rag-conformidade-laticinios.streamlit.app)
+[![CI](https://github.com/EnzoKoeche/rag-conformidade-laticinios/actions/workflows/tests.yml/badge.svg)](https://github.com/EnzoKoeche/rag-conformidade-laticinios/actions/workflows/tests.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 **RAG agêntico** que responde perguntas sobre **conformidade e qualidade na indústria de
 laticínios** com base exclusivamente em documentos públicos oficiais (IN 76/2018 e
 IN 77/2018 do MAPA, RIISPOA e manuais públicos da Embrapa) — **toda afirmação cita a
 fonte** (documento + artigo/seção) com o trecho original exibível; sem base recuperada,
 o sistema responde honestamente que não encontrou, em vez de inventar.
+
+> **Demo ao vivo:** [rag-conformidade-laticinios.streamlit.app](https://rag-conformidade-laticinios.streamlit.app)
+> — modo demo (custo zero). A nuvem gratuita não comporta o modelo de embedding na RAM,
+> então a demo roda **só BM25**; rodando local (`scripts/ingerir.py`), as 4 estratégias
+> ficam ativas, incluindo a híbrida+rerank (recall@5 = 1,00 no golden).
 
 Projeto 2 do portfólio de AI engineering — mesma disciplina do
 [agente-credito-langgraph](https://github.com/EnzoKoeche/agente-credito-langgraph):
@@ -125,6 +134,10 @@ uv run python eval/run_pagas.py              # DRY-RUN (pago só com --executar 
 uv run uvicorn rag_laticinios.api.main:app --app-dir src   # API: /ask /ingest /health
 uv run streamlit run app/streamlit_app.py                   # front com citações clicáveis
 ```
+
+A [demo pública](https://rag-conformidade-laticinios.streamlit.app) (Streamlit Community
+Cloud) sobe direto de `app/streamlit_app.py` no `main`, sem segredos — usa o
+`chunks.jsonl` versionado e detecta a ausência de índice denso para rodar só BM25.
 
 A primeira pergunta paga o carregamento dos modelos locais (~10–15 s); depois, p50 de
 ~300 ms no grafo demo. `POST /ingest {"doc_id": ...}` reindexa **um** documento sem
