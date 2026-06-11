@@ -9,17 +9,20 @@ Arquivo: `eval/golden/golden.jsonl` — 1 item por linha:
 
 ```json
 {
-  "id": "G-07",
-  "pergunta": "Qual a temperatura máxima do leite cru refrigerado na recepção do estabelecimento?",
-  "categoria": "limite_numerico",
-  "doc_esperado": "in-77-2018",
-  "artigos_esperados": ["art. NN  ← exemplo ILUSTRATIVO; números reais só após a ingestão"],
+  "id": "G-04",
+  "pergunta": "Qual a temperatura máxima do leite cru refrigerado no momento da recepção pelo estabelecimento?",
+  "categoria": "multi_doc",
+  "fontes_esperadas": [{"doc": "in-77-2018", "artigo": "art. 30"}, {"doc": "in-76-2018", "artigo": "art. 3º"}],
   "modo_acerto": "qualquer",
-  "resposta_referencia": "…",
-  "revisao_humana": false,
+  "resposta_referencia": "No máximo 7,0 °C …, excepcionalmente até 9,0 °C [IN 77/2018, art. 30; IN 76/2018, art. 3º]",
+  "revisao_humana": true,
   "respondivel": true
 }
 ```
+
+*(Refinamento durante a Fase 1: `doc_esperado`+`artigos_esperados` viraram a lista
+`fontes_esperadas[{doc, artigo}]` — necessário para perguntas multi-documento; para
+manuais sem artigos, `artigo` carrega a referência de página, ex. `"p. 17"`.)*
 
 - **Categorias** (estratificadas): `limite_numerico`, `definicao`, `procedimento`,
   `prazo_responsabilidade`, `multi_doc` (pergunta cujo gabarito aceita artigos de mais de
