@@ -5,8 +5,8 @@
 ## Status das fases
 
 - [x] Sondagem de ambiente e rede
-- [ ] **Fase 0 — Engenharia de requisitos** (em andamento)
-- [ ] Fase 1 — Ingestão e retrieval (4 estratégias)
+- [x] Fase 0 — Engenharia de requisitos (7 docs em `docs/` + auto-revisão `docs/revisoes/fase-0.md`)
+- [ ] **Fase 1 — Ingestão e retrieval (4 estratégias)** (em andamento)
 - [ ] Fase 2 — Grafo agêntico + evals grátis
 - [ ] Fase 3 — API, front, Docker, README, secret-scan
 
