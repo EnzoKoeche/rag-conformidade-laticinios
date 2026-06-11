@@ -1,0 +1,80 @@
+{
+  "gerado_em": "2026-06-11T04:21:20+00:00",
+  "documentos": [
+    {
+      "doc_id": "in-76-2018",
+      "titulo": "Instrução Normativa MAPA nº 76/2018 — identidade e qualidade de leite cru refrigerado, leite pasteurizado e leite pasteurizado tipo A",
+      "tipo": "legislacao",
+      "formato": "html",
+      "fonte_oficial": "https://www.in.gov.br/materia/-/asset_publisher/Kujrw0TZC2Mb/content/id/52750137",
+      "observacoes": "Snapshot Wayback de 2022-03-07 da página oficial do DOU (publicação 2018-11-30).",
+      "status": "ok",
+      "url_usada": "http://web.archive.org/web/20220307233253id_/https://www.in.gov.br/materia/-/asset_publisher/Kujrw0TZC2Mb/content/id/52750137",
+      "tentativas_anteriores": null,
+      "sha256": "94c4e9736c76f0fec7a8547c5ce464f61ed080491298ae67f09a259f31d09ae1",
+      "bytes": 101099,
+      "arquivo": "data/raw/in-76-2018.html",
+      "baixado_em": "2026-06-11T04:21:06+00:00"
+    },
+    {
+      "doc_id": "in-77-2018",
+      "titulo": "Instrução Normativa MAPA nº 77/2018 — critérios e procedimentos para produção, acondicionamento, conservação, transporte, seleção e recepção do leite cru",
+      "tipo": "legislacao",
+      "formato": "html",
+      "fonte_oficial": "https://www.in.gov.br/materia/-/asset_publisher/Kujrw0TZC2Mb/content/id/52750141",
+      "observacoes": "Snapshot Wayback de 2024-04-16 da página oficial do DOU (publicação 2018-11-30).",
+      "status": "ok",
+      "url_usada": "http://web.archive.org/web/20240416040822id_/https://www.in.gov.br/materia/-/asset_publisher/Kujrw0TZC2Mb/content/id/52750141/",
+      "tentativas_anteriores": null,
+      "sha256": "76246d134972894c8c56d1b1ac5dc7eec592ba6b795c5cfdb183f8d95ba94ff0",
+      "bytes": 203680,
+      "arquivo": "data/raw/in-77-2018.html",
+      "baixado_em": "2026-06-11T04:21:09+00:00"
+    },
+    {
+      "doc_id": "riispoa-2017",
+      "titulo": "Decreto nº 9.013/2017 (RIISPOA) — regulamento da inspeção industrial e sanitária de produtos de origem animal",
+      "tipo": "legislacao",
+      "formato": "html",
+      "fonte_oficial": "https://planalto.gov.br/ccivil_03/_ato2015-2018/2017/decreto/d9013.htm",
+      "observacoes": "Snapshot Wayback de 2026-01-09 da página do Planalto, que anota as alterações (Dec. 9.069/2017, 10.468/2020 etc.). O fallback da Câmara é a publicação ORIGINAL.",
+      "status": "ok",
+      "url_usada": "http://web.archive.org/web/20260109154813id_/https://planalto.gov.br/ccivil_03/_ato2015-2018/2017/Decreto/D9013.htm",
+      "tentativas_anteriores": null,
+      "sha256": "01072c365df8bde9a7428cab0109968dc38d596d8ace8f7bb3a937a4fbb34616",
+      "bytes": 890067,
+      "arquivo": "data/raw/riispoa-2017.html",
+      "baixado_em": "2026-06-11T04:21:11+00:00"
+    },
+    {
+      "doc_id": "embrapa-ordenha-manual",
+      "titulo": "Embrapa — Boas práticas na ordenha manual: procedimentos para assegurar a qualidade do leite e derivados",
+      "tipo": "manual",
+      "formato": "pdf",
+      "fonte_oficial": "https://www.infoteca.cnptia.embrapa.br/infoteca/handle/doc/511230",
+      "observacoes": "Publicação pública da Embrapa (Infoteca-e). Não redistribuída no repositório (ADR-006).",
+      "status": "ok",
+      "url_usada": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/511230/1/boaspraticasaloisio.pdf",
+      "tentativas_anteriores": null,
+      "sha256": "632bdabc9cbad93339b749c6da4459e0ab603d3e9e35af78db880eb64e216735",
+      "bytes": 5635135,
+      "arquivo": "data/raw/embrapa-ordenha-manual.pdf",
+      "baixado_em": "2026-06-11T04:21:13+00:00"
+    },
+    {
+      "doc_id": "embrapa-passo-a-passo-ordenha",
+      "titulo": "Embrapa — O passo a passo da ordenha higiênica manual",
+      "tipo": "manual",
+      "formato": "pdf",
+      "fonte_oficial": "https://www.infoteca.cnptia.embrapa.br/infoteca/handle/doc/1063391",
+      "observacoes": "Publicação pública da Embrapa (Infoteca-e). Não redistribuída no repositório (ADR-006).",
+      "status": "ok",
+      "url_usada": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1063391/1/Agreste.pdf",
+      "tentativas_anteriores": null,
+      "sha256": "8d9accad5a898d86c16157c8fe757714386ea89f04d9efe25307f2ed352dfc0e",
+      "bytes": 15440283,
+      "arquivo": "data/raw/embrapa-passo-a-passo-ordenha.pdf",
+      "baixado_em": "2026-06-11T04:21:20+00:00"
+    }
+  ]
+}

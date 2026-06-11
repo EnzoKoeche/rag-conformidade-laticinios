@@ -91,10 +91,11 @@ divergir do DOU — mitigado pela âncora textual e registrado como caveat hones
 
 **Contexto.** Reprodutibilidade pede dados no repo; direitos autorais pedem cuidado.
 
-**Decisão.** `data/raw/` nunca é versionado. `data/processed/` (chunks JSONL) é
-versionado **apenas para legislação** — texto de norma legal não tem proteção autoral
-(art. 8º, I, Lei 9.610/1998). Material Embrapa (protegido) só entra via script de
-download; o repo guarda apenas metadados/manifesto.
+**Decisão.** `data/raw/` e `data/processed/` nunca são versionados. O JSONL processado
+mistura legislação (domínio público — art. 8º, I, Lei 9.610/1998) com material Embrapa
+(protegido); separar os dois só para versionar metade não compensa — o repo guarda o
+**manifesto** (URLs + SHA-256) e os scripts reproduzem o restante em ~1 min.
+*(Revisado durante a Fase 1: a redação original previa versionar a parte de legislação.)*
 
 ---
 

@@ -18,8 +18,10 @@ htmlcov/
 .mypy_cache/
 .ruff_cache/
 
-# Dados brutos (baixados via scripts/baixar_documentos.py — não redistribuídos)
+# Dados brutos e processados (reproduzíveis via scripts/baixar_documentos.py +
+# scripts/ingerir.py; manifesto.json com URLs/SHA-256 é versionado)
 data/raw/
+data/processed/
 
 # Índices regeneráveis
 data/index/
