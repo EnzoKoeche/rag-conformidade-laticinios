@@ -12,8 +12,11 @@ o sistema responde honestamente que não encontrou, em vez de inventar.
 
 > **Demo ao vivo:** [rag-conformidade.streamlit.app](https://rag-conformidade.streamlit.app)
 > — modo demo (custo zero). A nuvem gratuita não comporta o modelo de embedding na RAM,
-> então a demo roda **só BM25**; rodando local (`scripts/ingerir.py`), as 4 estratégias
-> ficam ativas, incluindo a híbrida+rerank (recall@5 = 1,00 no golden).
+> então a demo roda **só BM25** (busca lexical); rodando local (`scripts/ingerir.py`), as
+> 4 estratégias ficam ativas, incluindo a híbrida+rerank (recall@5 = 1,00 no golden).
+> **Use o vocabulário da norma** — há um manual de perguntas testadas em
+> [`docs/exemplos_de_perguntas.md`](docs/exemplos_de_perguntas.md) (a demo também traz
+> exemplos clicáveis).
 
 Projeto 2 do portfólio de AI engineering — mesma disciplina do
 [agente-credito-langgraph](https://github.com/EnzoKoeche/agente-credito-langgraph):
@@ -26,7 +29,8 @@ caveats documentados.
 > (chunker, extrator, fusão RRF, BM25, citação/groundedness, guard de custo, grafo).
 > Retrieval: **híbrida+rerank recall@5 = 1,00 · MRR@10 = 0,91 · p50 322 ms** no golden
 > de 30 perguntas. Groundedness: **0 respostas sem citação válida · 3/3 recusas
-> honestas**. Evals pagas implementadas com dry-run — execução fica para revisão humana.
+> honestas**. Evals pagas **executadas** (2026-06-11, US$ 0,1253) — achado: o grader
+> cross-encoder local supera o grader LLM (ver [resultados](eval/results/RESULTS_PAGAS.md)).
 
 > ⚠️ Este sistema **localiza e cita** a norma; **não é aconselhamento jurídico** —
 > interpretar e aplicar é responsabilidade humana.
@@ -105,16 +109,22 @@ caveats abaixo.
 faithfulness por linha + answer relevancy em 10 itens estratificados. **Dry-run é o
 default** (plano + custo estimado, zero chamadas); execução exige `--executar` +
 `RAG_PERMITIR_CUSTO=1` + chave, e aborta acima do teto (`RAG_TETO_CUSTO_USD`).
-Estimativa: US$ 0,126 total; custo do sistema ≈ **US$ 0,005/pergunta** (RNF-03 ✓
-projetado). **Ainda não executadas** — ficam para revisão humana presente.
+**Executada em 2026-06-11: US$ 0,1253 reais** (estimativa US$ 0,126), custo do sistema
+≈ US$ 0,005/pergunta (RNF-03 ✓). **Achado** ([`RESULTS_PAGAS.md`](eval/results/RESULTS_PAGAS.md)):
+quando responde, é 100% fiel e relevante (0 alucinação), mas o **grader LLM (Haiku) é mais
+conservador que o cross-encoder local e recusou 5/10 perguntas respondíveis** — o oposto
+da hipótese. O modelo especializado local vence o LLM geral na tarefa de relevância, de
+graça; medir, não assumir.
 
 **Caveats honestos:** o golden foi escrito pelo autor do sistema a partir dos próprios
 chunks → mede **comparação entre estratégias e regressão**, tende a superestimar
 qualidade absoluta (mitigação: amostra de 5 itens revisada contra o texto-fonte, com
 1 correção; paráfrases adversariais ficam como evolução). O limiar do grader demo (0,5 no cross-encoder) foi
 calibrado nesse mesmo golden e **custa 3/27 falsos negativos** (perguntas estilo
-"como define…", "por quê…") — escolha deliberada: nunca inventar > sempre responder; o
-grader LLM do modo real é medido nas evals pagas. O verificador de groundedness é
+"como define…", "por quê…") — escolha deliberada: nunca inventar > sempre responder.
+Trocar pelo grader LLM **não** ajuda: as evals pagas mostraram que o Haiku recusa ainda
+mais (5/10 na amostra) — o cross-encoder local continua sendo a melhor escolha
+([`RESULTS_PAGAS.md`](eval/results/RESULTS_PAGAS.md)). O verificador de groundedness é
 lexical: prova o **contrato** de citação, não qualidade semântica.
 
 ## Como rodar
@@ -159,6 +169,7 @@ container quando a 1ª pergunta precisa deles.
 | [`docs/diagrama_casos_uso.md`](docs/diagrama_casos_uso.md) | Diagrama Mermaid de casos de uso |
 | [`docs/rastreabilidade.md`](docs/rastreabilidade.md) | Matriz RF ↔ UC ↔ nó ↔ teste/eval |
 | [`docs/plano_eval.md`](docs/plano_eval.md) | Golden, métricas, guard de custo — definidos antes do código |
+| [`docs/exemplos_de_perguntas.md`](docs/exemplos_de_perguntas.md) | Manual de perguntas testadas na demo (e por que BM25 exige o vocabulário da norma) |
 | [`docs/decisoes.md`](docs/decisoes.md) | ADRs 001–012 |
 | [`docs/revisoes/`](docs/revisoes/) | Auto-revisões adversariais por fase + secret-scan |
 

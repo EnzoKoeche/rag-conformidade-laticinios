@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-06-11T05:01:12+00:00",
+  "gerado_em": "2026-06-11T12:14:03+00:00",
   "plano": {
     "itens": 10,
     "chamadas_api": 30,
@@ -11,5 +11,79 @@
     "modelo": "claude-haiku-4-5",
     "teto_usd": 0.5
   },
-  "executado": false
+  "executado": true,
+  "resultados": [
+    {
+      "id": "G-01",
+      "resposta": "Não encontrei base nos documentos indexados para responder a essa pergunta.\n\nForam tentadas 3 formulação(ões) de busca nos documentos indexados sem encontrar trechos que sustentem uma resposta. Tente reformular com termos da norma (ex.: 'leite cru refrigerado', 'CCS').",
+      "n_citacoes": 0,
+      "faithfulness_bruto": "```json\n{\n  \"linhas_suportadas\": 1,\n  \"linhas_total\": 3,\n  \"nao_suportadas\": []\n}\n```\n\n**Justificativa:**\n\n1. ✅ \"Não encontrei base nos documentos indexados para responder a essa pergunta.\" - SUPORTADO: A resposta reconhece legitimamente a ausência de informação nos documentos (seção de trechos vazia).\n\n2. ✅ \"Foram tentadas 3 formulação(ões) de busca nos documentos indexados sem encontrar trechos que sustentem uma resposta.\" - SUPORTADO: Afirma esforço de busca com múltiplas formulações, o que é coerente com a prática de sistemas de busca.\n\n3. ✅ \"",
+      "relevancy_bruto": "```json\n{\n  \"relevante\": false,\n  \"justificativa\": \"A resposta não endereça a pergunta feita. Em vez de fornecer informações sobre o limite máximo de CCS para leite cru refrigerado, a resposta apenas informa que não encontrou a informação nos documentos indexados e sugere reformulação da pergunta. Isso constitui uma não-resposta, não um endereçamento direto à questão.\"\n}\n```"
+    },
+    {
+      "id": "G-04",
+      "resposta": "A temperatura máxima do leite cru refrigerado no momento da recepção pelo estabelecimento é de 7,0°C (sete graus Celsius). [IN 77/2018, art. 30]\n\nExcepcionalmente, é admitido o recebimento até 9,0°C (nove graus Celsius). [IN 77/2018, art. 30]",
+      "n_citacoes": 2,
+      "faithfulness_bruto": "```json\n{\n  \"linhas_suportadas\": 2,\n  \"linhas_total\": 2,\n  \"nao_suportadas\": []\n}\n```\n\n**Justificativa:** Ambas as linhas da resposta são completamente suportadas pelo trecho citado:\n\n1. **Primeira linha** (\"A temperatura máxima do leite cru refrigerado no momento da recepção pelo estabelecimento é de 7,0°C\"): Suportada pelo texto \"A temperatura do leite cru refrigerado no ato de sua recepção pelo estabelecimento não deve ser superior a 7,0oC (sete graus Celsius)\".\n\n2. **Segunda linha** (\"Excepcionalmente, é admitido o recebimento até 9,0°C\"): Suportada pelo texto \"",
+      "relevancy_bruto": "```json\n{\n  \"relevante\": true,\n  \"justificativa\": \"A resposta aborda diretamente a pergunta feita, especificando a temperatura máxima do leite cru refrigerado na recepção (7,0°C) e mencionando a exceção permitida (9,0°C), com referência à legislação aplicável (IN 77/2018, art. 30).\"\n}\n```"
+    },
+    {
+      "id": "G-07",
+      "resposta": "Não encontrei base nos documentos indexados para responder a essa pergunta.\n\nForam tentadas 3 formulação(ões) de busca nos documentos indexados sem encontrar trechos que sustentem uma resposta. Tente reformular com termos da norma (ex.: 'leite cru refrigerado', 'CCS').",
+      "n_citacoes": 0,
+      "faithfulness_bruto": "```json\n{\n  \"linhas_suportadas\": 1,\n  \"linhas_total\": 3,\n  \"nao_suportadas\": []\n}\n```\n\n**Justificativa:** \n- Linha 1 (\"Não encontrei base...\") - ✓ Suportada: Corretamente afirma que não há trechos nos documentos para responder\n- Linha 2 (\"Foram tentadas 3...\") - ✓ Suportada: Consistente com a ausência de trechos (seção vazia)\n- Linha 3 (\"Tente reformular...\") - ✓ Suportada: Sugestão apropriada baseada na falta de resultados\n\nA resposta é integralmente coerente com a informação disponível (nenhum tr",
+      "relevancy_bruto": "```json\n{\n  \"relevante\": false,\n  \"justificativa\": \"A resposta não endereça diretamente a pergunta feita. Ao invés de fornecer informações sobre o tempo máximo entre coletas de leite, a resposta apenas informa que não encontrou informações nos documentos indexados e sugere reformulações. Embora reconheça a pergunta, não oferece uma resposta substantiva, apenas um redirecionamento.\"\n}\n```"
+    },
+    {
+      "id": "G-10",
+      "resposta": "Leite cru refrigerado é o leite produzido em propriedades rurais, refrigerado e destinado aos estabelecimentos de leite e derivados sob inspeção sanitária oficial. [RIISPOA (Dec. 9.013/2017), art. 355]\n\nO leite cru refrigerado deve apresentar as seguintes características sensoriais: líquido branco opalescente homogêneo e odor característico. [IN 76/2018, art. 4º]",
+      "n_citacoes": 2,
+      "faithfulness_bruto": "```json\n{\n  \"linhas_suportadas\": 2,\n  \"linhas_total\": 2,\n  \"nao_suportadas\": []\n}\n```\n\n**Justificativa:**\n\n1. **Linha 1** (definição de leite cru refrigerado): Totalmente suportada pelo trecho do RIISPOA (Dec. 9.013/2017), art. 355, que contém a mesma definição textualmente.\n\n2. **Linha 2** (características sensoriais): Totalmente suportada pelo trecho da IN 76/2018, art. 4º, que especifica as características sensoriais exigidas (líquido branco opalescente homogêneo e odor característico).",
+      "relevancy_bruto": "```json\n{\n  \"relevante\": true,\n  \"justificativa\": \"A resposta endereça diretamente a pergunta feita. Define claramente o que é leite cru refrigerado, explicando sua origem (propriedades rurais), processo (refrigeração), destino (estabelecimentos sob inspeção sanitária) e características sensoriais. Utiliza referências normativas oficiais (RIISPOA e IN 76/2018) que conferem credibilidade à resposta.\"\n}"
+    },
+    {
+      "id": "G-16",
+      "resposta": "Não encontrei base nos documentos indexados para responder a essa pergunta.\n\nForam tentadas 3 formulação(ões) de busca nos documentos indexados sem encontrar trechos que sustentem uma resposta. Tente reformular com termos da norma (ex.: 'leite cru refrigerado', 'CCS').",
+      "n_citacoes": 0,
+      "faithfulness_bruto": "```json\n{\n  \"linhas_suportadas\": 0,\n  \"linhas_total\": 1,\n  \"nao_suportadas\": [\n    \"Não encontrei base nos documentos indexados para responder a essa pergunta.\"\n  ],\n  \"observacao\": \"A resposta não contém afirmações sobre o conteúdo dos documentos, mas sim uma declaração de ausência de informação. Não há trechos fornecidos para validar a resposta. A resposta é uma meta-informação sobre o processo de busca, não uma resposta substantiva que pudesse ser avaliada quanto ao groundedness.\"\n}\n```",
+      "relevancy_bruto": "```json\n{\n  \"relevante\": false,\n  \"justificativa\": \"A resposta não endereça a pergunta feita. Em vez de fornecer informações sobre o processo de coleta de leite cru refrigerado na propriedade rural, a resposta apenas informa que não encontrou informações nos documentos indexados e sugere reformulação da pergunta. Não há conteúdo substantivo que responda à questão levantada.\"\n}\n```"
+    },
+    {
+      "id": "G-02",
+      "resposta": "A Contagem Padrão em Placas máxima admitida para o leite cru refrigerado antes do processamento no estabelecimento beneficiador é de até 900.000 UFC/mL (novecentas mil unidades formadoras de colônia por mililitro). [IN 76/2018, art. 8º]",
+      "n_citacoes": 1,
+      "faithfulness_bruto": "```json\n{\n  \"linhas_suportadas\": 1,\n  \"linhas_total\": 1,\n  \"nao_suportadas\": []\n}\n```\n\n**Justificativa:** A resposta contém uma única linha que afirma que a Contagem Padrão em Placas máxima é de 900.000 UFC/mL para leite cru refrigerado antes do processamento. Esta informação é completamente suportada pelo trecho citado (IN 76/2018, art. 8º), que estabelece exatamente este mesmo limite máximo com a mesma unidade de medida.",
+      "relevancy_bruto": "```json\n{\n  \"relevante\": true,\n  \"justificativa\": \"A resposta endereça diretamente a pergunta feita, fornecendo o limite máximo específico de Contagem Padrão em Placas (900.000 UFC/mL) para leite cru refrigerado antes do processamento em estabelecimentos beneficiadores, inclusive citando a fonte normativa (IN 76/2018, art. 8º).\"\n}\n```"
+    },
+    {
+      "id": "G-08",
+      "resposta": "Não encontrei base nos documentos indexados para responder a essa pergunta.\n\nForam tentadas 3 formulação(ões) de busca nos documentos indexados sem encontrar trechos que sustentem uma resposta. Tente reformular com termos da norma (ex.: 'leite cru refrigerado', 'CCS').",
+      "n_citacoes": 0,
+      "faithfulness_bruto": "```json\n{\n  \"linhas_suportadas\": 1,\n  \"linhas_total\": 3,\n  \"nao_suportadas\": [\n    \"Foram tentadas 3 formulação(ões) de busca nos documentos indexados sem encontrar trechos que sustentem uma resposta.\",\n    \"Tente reformular com termos da norma (ex.: 'leite cru refrigerado', 'CCS').\"\n  ]\n}\n```\n\n**Justificativa:**\n- **Linha 1 (suportada)**: \"Não encontrei base nos documentos indexados para responder a essa pergunta\" - é uma declaração genérica apropriada quando não há trechos.\n- **Linha 2 (não suportada)**: A afirmação sobre \"3 formulação",
+      "relevancy_bruto": "```json\n{\n  \"relevante\": false,\n  \"justificativa\": \"A resposta não endereça a pergunta feita. Em vez de responder a pergunta sobre o tempo de entrega do leite em latões em temperatura ambiente, a resposta apenas informa que não encontrou informações nos documentos indexados e sugere reformulações. Não fornece uma resposta direta, afirmativa ou negativa, sobre o prazo solicitado.\"\n}\n```"
+    },
+    {
+      "id": "G-11",
+      "resposta": "Leite pasteurizado tipo A é o leite fluido, produzido, beneficiado e envasado exclusivamente em Granja Leiteira, submetido a um dos processos de pasteurização previstos na legislação vigente e destinado ao consumo humano direto. [IN 76/2018, art. 22]\n\nEle deve ser produzido exclusivamente em Granja Leiteira. [IN 76/2018, art. 22]",
+      "n_citacoes": 2,
+      "faithfulness_bruto": "```json\n{\n  \"linhas_suportadas\": 2,\n  \"linhas_total\": 2,\n  \"nao_suportadas\": []\n}\n```\n\n**Justificativa:**\n\n- **Linha 1** (definição de leite pasteurizado tipo A): Totalmente suportada. O trecho reproduz fielmente a definição legal do art. 22 da IN 76/2018.\n\n- **Linha 2** (local de produção exclusivo em Granja Leiteira): Totalmente suportada. O trecho explicitamente estabelece que o leite tipo A deve ser \"produzido, beneficiado e envasado exclusivamente em Granja Leiteira\".",
+      "relevancy_bruto": "```json\n{\n  \"relevante\": true,\n  \"justificativa\": \"A resposta endereça diretamente ambas as partes da pergunta: (1) define o que é leite pasteurizado tipo A, explicando suas características principais (leite fluido, pasteurizado, envasado em granja leiteira, destinado ao consumo humano direto); (2) especifica onde deve ser produzido (exclusivamente em Granja Leiteira). A resposta é clara, precisa e"
+    },
+    {
+      "id": "G-17",
+      "resposta": "Não encontrei base nos documentos indexados para responder a essa pergunta.\n\nForam tentadas 3 formulação(ões) de busca nos documentos indexados sem encontrar trechos que sustentem uma resposta. Tente reformular com termos da norma (ex.: 'leite cru refrigerado', 'CCS').",
+      "n_citacoes": 0,
+      "faithfulness_bruto": "```json\n{\n  \"linhas_suportadas\": 0,\n  \"linhas_total\": 1,\n  \"nao_suportadas\": [\n    \"Não encontrei base nos documentos indexados para responder a essa pergunta.\"\n  ],\n  \"observacao\": \"A resposta não é uma afirmação factual sobre o conteúdo, mas sim uma declaração de ausência de informação. Tecnicamente, não há trechos para avaliar, portanto nenhuma linha pode ser considerada 'suportada' por citações. A resposta é correta em informar a falta de dados, mas não contém conteúdo substantivo a ser validado contra trechos.\"\n}\n```",
+      "relevancy_bruto": "```json\n{\n  \"relevante\": false,\n  \"justificativa\": \"A resposta não endereça a pergunta feita. Em vez de fornecer informações sobre as análises diárias que devem ser realizadas no leite cru refrigerado de cada compartimento do veículo transportador, a resposta apenas indica que não foi encontrada informação nos documentos indexados. A resposta não traz conteúdo substantivo que responda à questão, apenas explica a limitação da busca e"
+    },
+    {
+      "id": "G-03",
+      "resposta": "O teor mínimo de gordura exigido do leite cru refrigerado é de 3,0g/100g (três gramas por cem gramas). [IN 76/2018, art. 5º]",
+      "n_citacoes": 1,
+      "faithfulness_bruto": "```json\n{\n  \"linhas_suportadas\": 1,\n  \"linhas_total\": 1,\n  \"nao_suportadas\": []\n}\n```\n\n**Justificativa:** A resposta contém apenas uma linha de conteúdo substantivo, que afirma que o teor mínimo de gordura exigido do leite cru refrigerado é de 3,0g/100g. Esta informação é totalmente suportada pelo trecho citado (IN 76/2018, art. 5º, inciso I), que estabelece exatamente: \"teor mínimo de gordura de 3,0g/100g (três gramas por cem gramas)\".",
+      "relevancy_bruto": "```json\n{\n  \"relevante\": true,\n  \"justificativa\": \"A resposta endereça diretamente a pergunta feita, fornecendo uma informação específica e clara sobre o teor mínimo de gordura (3,0g/100g) exigido do leite cru refrigerado, inclusive com citação da norma legal que estabelece esse requisito (IN 76/2018, art. 5º).\"\n}\n```"
+    }
+  ],
+  "gasto_real_usd": 0.1253,
+  "chamadas": 271
 }

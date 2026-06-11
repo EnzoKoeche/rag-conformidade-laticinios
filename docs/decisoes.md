@@ -137,8 +137,9 @@ obrigatório + teto configurável). O verificador de groundedness é **código r
 modos** (não mock): parsing de citações + cobertura/sobreposição contra os chunks.
 
 **Consequências.** Testes e evals grátis exercitam o grafo de verdade; a qualidade de
-*geração* do modo demo não representa o modo real (caveat documentado) — faithfulness do
-modo real é medida nas evals pagas (amanhã).
+*geração* do modo demo não representa o modo real (caveat documentado). Medido nas evals
+pagas (2026-06-11): quando o modo real responde, é 100% fiel; mas o **grader LLM recusa
+mais** que o cross-encoder do demo (5/10 vs 3/27) — `eval/results/RESULTS_PAGAS.md`.
 
 ---
 

@@ -66,8 +66,32 @@ with st.sidebar:
         "A tabela comparativa das estratégias está em `eval/results/RESULTS.md`."
     )
 
+# Exemplos testados (funcionam no modo BM25 da nuvem) — clique para preencher.
+# O último demonstra a recusa honesta (sem base no corpus).
+EXEMPLOS = [
+    ("🌡️ Temperatura na recepção",
+     "Qual a temperatura máxima do leite cru refrigerado no momento da recepção pelo estabelecimento?"),
+    ("🧪 Limite de CCS",
+     "Qual o limite máximo de Contagem de Células Somáticas (CCS) para o leite cru refrigerado?"),
+    ("📖 Leite tipo A",
+     "O que é leite pasteurizado tipo A e onde ele deve ser produzido?"),
+    ("🥛 Teste da caneca",
+     "Para que serve o teste da caneca de fundo escuro na ordenha?"),
+    ("🚫 Recusa honesta",
+     "Qual o prazo de validade do leite pasteurizado?"),
+]
+
+if "pergunta" not in st.session_state:
+    st.session_state.pergunta = ""
+
+st.caption("Exemplos (clique para preencher) — veja mais em `docs/exemplos_de_perguntas.md`:")
+for col, (rotulo, texto) in zip(st.columns(len(EXEMPLOS)), EXEMPLOS):
+    if col.button(rotulo, help=texto, use_container_width=True):
+        st.session_state.pergunta = texto
+
 pergunta = st.text_input(
     "Pergunta",
+    key="pergunta",
     placeholder="Ex.: Qual o limite máximo de células somáticas do leite cru refrigerado?",
 )
 

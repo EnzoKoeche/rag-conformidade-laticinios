@@ -49,19 +49,37 @@ terminar, não se esqueça do Notion e GitHub (...) e depois volte a codar".
       criado via `gh` (api.github.com voltou a funcionar nesta máquina em 2026-06-11).
 - [x] **Notion:** página "Estado do Projeto" criada no padrão do projeto 1.
 
+## Sessão 2026-06-11 (tarde) — deploy, eval paga e manual de perguntas
+
+Instrução do Enzo: deploy no Streamlit; manual de perguntas que funcionam (as dele "não
+funcionaram"); README com custo real; estruturar o RAG no Notion conforme a engenharia
+de requisitos; salvar no GitHub.
+
+- [x] **Deploy no Streamlit Community Cloud:** [rag-conformidade.streamlit.app](https://rag-conformidade.streamlit.app)
+      (modo demo, custo zero). App detecta ausência de índice denso e cai p/ **BM25**
+      (BGE-m3 não cabe na RAM grátis); `chunks.jsonl` versionado; `requirements.txt`
+      só-cloud; tema. Validado headless nos dois modos.
+- [x] **Eval paga executada** (Enzo presente, chave no `.env`): **US$ 0,1253 reais**
+      (estimativa US$ 0,1259), 271 chamadas. **Achado:** 5/10 respondidas (100% fiéis,
+      0 alucinação) e **5/10 recusadas** — o grader LLM (Haiku) é MAIS conservador que o
+      cross-encoder do demo, o oposto da hipótese. `eval/results/RESULTS_PAGAS.md`.
+- [x] **Diagnóstico do "não funcionou":** a demo da nuvem é BM25 (lexical); perguntas em
+      linguagem livre não casam o vocabulário da norma. No config exato da nuvem, as
+      perguntas do golden respondem **24/27**. Criado `docs/exemplos_de_perguntas.md`
+      (24 perguntas testadas + demos de recusa honesta) e **exemplos clicáveis no app**.
+- [x] **README/docs** sincronizados: custo real, achado do grader, manual, link da demo
+      corrigido p/ `rag-conformidade.streamlit.app`.
+
 ## Bloqueios
 
 Nenhum.
 
 ## Pendências (dependem do Enzo)
 
-1. **Evals pagas** (modo real, supervisão): criar `.env` com a chave +
-   `RAG_PERMITIR_CUSTO=1`, depois `uv run python eval/run_pagas.py --executar`
-   (estimativa US$ 0,126 · teto US$ 0,50). Atenção a G-12/G-20/G-27 (falsos negativos
-   do grader demo — hipótese: o grader LLM resolve).
-2. Opcional: re-auditar a revisão delegada do golden (`docs/revisoes/revisao-golden.md`
-   tem as citações-fonte; leva minutos).
-3. Opcional: deploy do Streamlit no Community Cloud, como no projeto 1.
+1. Opcional: melhorar o grader LLM (prompt few-shot/rubrica ou grading em lote) p/
+   recuperar parte das 5 recusas — trabalho futuro registrado em `RESULTS_PAGAS.md`.
+2. Opcional: re-auditar a revisão delegada do golden (`docs/revisoes/revisao-golden.md`).
+3. Opcional: screenshot da demo no README (como no projeto 1).
 
 ## Achados de ambiente (2026-06-11, noite)
 
