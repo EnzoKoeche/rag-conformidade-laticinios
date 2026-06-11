@@ -1,6 +1,6 @@
 # rag-conformidade-laticinios
 
-[![Demo ao vivo](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://rag-conformidade-laticinios.streamlit.app)
+[![Demo ao vivo](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://rag-conformidade.streamlit.app)
 [![CI](https://github.com/EnzoKoeche/rag-conformidade-laticinios/actions/workflows/tests.yml/badge.svg)](https://github.com/EnzoKoeche/rag-conformidade-laticinios/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -10,7 +10,7 @@ IN 77/2018 do MAPA, RIISPOA e manuais públicos da Embrapa) — **toda afirmaç�
 fonte** (documento + artigo/seção) com o trecho original exibível; sem base recuperada,
 o sistema responde honestamente que não encontrou, em vez de inventar.
 
-> **Demo ao vivo:** [rag-conformidade-laticinios.streamlit.app](https://rag-conformidade-laticinios.streamlit.app)
+> **Demo ao vivo:** [rag-conformidade.streamlit.app](https://rag-conformidade.streamlit.app)
 > — modo demo (custo zero). A nuvem gratuita não comporta o modelo de embedding na RAM,
 > então a demo roda **só BM25**; rodando local (`scripts/ingerir.py`), as 4 estratégias
 > ficam ativas, incluindo a híbrida+rerank (recall@5 = 1,00 no golden).
@@ -135,7 +135,7 @@ uv run uvicorn rag_laticinios.api.main:app --app-dir src   # API: /ask /ingest /
 uv run streamlit run app/streamlit_app.py                   # front com citações clicáveis
 ```
 
-A [demo pública](https://rag-conformidade-laticinios.streamlit.app) (Streamlit Community
+A [demo pública](https://rag-conformidade.streamlit.app) (Streamlit Community
 Cloud) sobe direto de `app/streamlit_app.py` no `main`, sem segredos — usa o
 `chunks.jsonl` versionado e detecta a ausência de índice denso para rodar só BM25.
 
