@@ -37,9 +37,16 @@ MSG_SEM_BASE = "Não encontrei base nos documentos indexados para responder a es
 
 # LLM pago (modo real) — guard de custo é inegociável
 RAG_MODO = os.getenv("RAG_MODO", "demo")
-RAG_MODELO = os.getenv("RAG_MODELO", "claude-haiku-4-5-20251001")
+RAG_MODELO = os.getenv("RAG_MODELO", "claude-haiku-4-5")
 RAG_PERMITIR_CUSTO = os.getenv("RAG_PERMITIR_CUSTO", "0") == "1"
 RAG_TETO_CUSTO_USD = float(os.getenv("RAG_TETO_CUSTO_USD", "0.50"))
+RAG_MAX_TOKENS_RESPOSTA = 1024
+
+# Preços US$/MTok (entrada, saída) — fonte: tabela de modelos Anthropic, 2026-06
+PRECOS_USD_POR_MTOK: dict[str, tuple[float, float]] = {
+    "claude-haiku-4-5": (1.00, 5.00),
+    "claude-sonnet-4-6": (3.00, 15.00),
+}
 
 # Chroma (ADR-001)
 CHROMA_MODE = os.getenv("CHROMA_MODE", "embedded")
