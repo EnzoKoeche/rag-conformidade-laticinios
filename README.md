@@ -129,8 +129,11 @@ A primeira pergunta paga o carregamento dos modelos locais (~10–15 s); depois,
 ~300 ms no grafo demo. `POST /ingest {"doc_id": ...}` reindexa **um** documento sem
 recalcular embeddings dos demais (cache por hash de texto).
 
-Docker: `docker compose up --build` sobe API + Chroma em modo servidor (rode os dois
-scripts acima antes, para popular `./data`).
+Docker: `docker compose up --build` sobe API + Chroma em modo servidor. O Chroma do
+compose começa vazio: depois de subir, popule-o com `POST /ingest` por documento
+(receita pronta no cabeçalho do [`docker-compose.yml`](docker-compose.yml)) — os
+embeddings vêm do cache em `./data`, sem recomputar; modelos HF só são baixados pelo
+container quando a 1ª pergunta precisa deles.
 
 ## Documentação (Fase 0 → eval antes de código)
 

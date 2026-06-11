@@ -1,10 +1,15 @@
 # app + vetor store (ADR-001: chroma embedded no dev; servidor http no compose)
 #
-# 1ª execução (fora do container, popula ./data):
+# Pré-requisito (no host, popula ./data com corpus + cache de embeddings):
 #   uv run python scripts/baixar_documentos.py && uv run python scripts/ingerir.py
-# Depois: docker compose up --build
-# Nota: o container baixa os modelos HF (~3 GB) na 1ª pergunta, para ./data/hf-cache
-# (persistido no volume; downloads seguintes usam o cache).
+# Subir:  docker compose up --build
+# O Chroma do compose tem volume próprio e começa VAZIO — popular via API (usa o
+# cache de embeddings de ./data, sem recomputar nem baixar o modelo de embedding):
+#   for d in $(curl -s localhost:8000/health | python3 -c 'import sys,json;print(*json.load(sys.stdin)["documentos"])'); do
+#     curl -s -X POST localhost:8000/ingest -H 'content-type: application/json' -d "{\"doc_id\":\"$d\"}"; echo
+#   done
+# Modelos HF só são baixados pelo container quando necessários (1ª pergunta densa:
+# BGE-m3 ~2,3 GB; grader demo: cross-encoder ~0,5 GB) → ./data/hf-cache, persistido.
 services:
   api:
     build: .

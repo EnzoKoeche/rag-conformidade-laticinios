@@ -53,7 +53,6 @@ class Embedder:
 
     def embutir(self, textos: list[str], tipo: str = "passage") -> np.ndarray:
         """tipo: 'passage' (indexação) ou 'query' (consulta). Usa cache por texto."""
-        self._carregar()
         chaves = [self._chave_cache(t, tipo) for t in textos]
         cache: dict[str, np.ndarray] = {}
         path = self._cache_path()
@@ -62,6 +61,12 @@ class Embedder:
                 cache = {k: npz[k] for k in npz.files}
         faltando = [i for i, ch in enumerate(chaves) if ch not in cache]
         if faltando:
+            # cache 100% quente dispensa o modelo (ingestão incremental no container)
+            nome_configurado = self.nome_modelo
+            self._carregar()
+            if self.nome_modelo != nome_configurado:
+                # cascata caiu p/ fallback: chaves e arquivo de cache mudam de nome
+                return self.embutir(textos, tipo=tipo)
             entrada = [textos[i] for i in faltando]
             if self._eh_e5:
                 prefixo = "query: " if tipo == "query" else "passage: "
