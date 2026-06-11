@@ -39,13 +39,17 @@ class GuardaCusto:
     teto_usd: float = config.RAG_TETO_CUSTO_USD
     gasto_usd: float = 0.0
     chamadas: int = 0
+    # None = lê de config (default seguro: bloqueado sem RAG_PERMITIR_CUSTO=1).
+    # True = opt-in explícito (ex.: visitante traz a própria chave no front BYOK).
+    permitir: bool | None = None
 
-    def autorizar(self) -> None:
-        if not config.RAG_PERMITIR_CUSTO:
+    def autorizar(self, *, tem_chave_explicita: bool = False) -> None:
+        permitido = config.RAG_PERMITIR_CUSTO if self.permitir is None else self.permitir
+        if not permitido:
             raise CustoNaoPermitidoErro(
                 "chamada paga bloqueada: defina RAG_PERMITIR_CUSTO=1 explicitamente"
             )
-        if not os.getenv("ANTHROPIC_API_KEY"):
+        if not (tem_chave_explicita or os.getenv("ANTHROPIC_API_KEY")):
             raise CustoNaoPermitidoErro("ANTHROPIC_API_KEY ausente no ambiente/.env")
         if self.gasto_usd >= self.teto_usd:
             raise TetoDeCustoErro(
@@ -83,16 +87,22 @@ class LLMFake:
 class LLMAnthropic:
     """Haiku via SDK oficial, atrás do GuardaCusto. Só é instanciado no modo real."""
 
-    def __init__(self, guarda: GuardaCusto | None = None, modelo: str | None = None):
+    def __init__(
+        self,
+        guarda: GuardaCusto | None = None,
+        modelo: str | None = None,
+        api_key: str | None = None,
+    ):
         self.modelo = modelo or config.RAG_MODELO
         self.guarda = guarda or GuardaCusto()
-        self.guarda.autorizar()  # falha cedo: sem permissão, nem constrói
+        self._api_key = api_key  # BYOK: nunca persistido, só repassado ao SDK
+        self.guarda.autorizar(tem_chave_explicita=bool(api_key))  # falha cedo
         import anthropic
 
-        self._client = anthropic.Anthropic()
+        self._client = anthropic.Anthropic(api_key=api_key) if api_key else anthropic.Anthropic()
 
     def gerar(self, system: str, usuario: str, max_tokens: int = config.RAG_MAX_TOKENS_RESPOSTA) -> RespostaLLM:
-        self.guarda.autorizar()
+        self.guarda.autorizar(tem_chave_explicita=bool(self._api_key))
         resposta = self._client.messages.create(
             model=self.modelo,
             max_tokens=max_tokens,

@@ -54,6 +54,21 @@ def test_llm_anthropic_nao_constroi_sem_permissao(monkeypatch):
         LLMAnthropic()
 
 
+def test_guard_byok_opt_in_explicito(monkeypatch):
+    """Front BYOK: sem RAG_PERMITIR_CUSTO e sem env key, o opt-in explícito do visitante
+    (que trouxe a própria chave) autoriza — sem afrouxar o default bloqueado."""
+    monkeypatch.setattr(config, "RAG_PERMITIR_CUSTO", False)
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    # opt-in + chave explícita do visitante: autoriza
+    GuardaCusto(permitir=True).autorizar(tem_chave_explicita=True)
+    # opt-in mas sem chave: continua bloqueando
+    with pytest.raises(CustoNaoPermitidoErro, match="ANTHROPIC_API_KEY"):
+        GuardaCusto(permitir=True).autorizar()
+    # chave mas sem opt-in (default lê config=False): continua bloqueando
+    with pytest.raises(CustoNaoPermitidoErro, match="RAG_PERMITIR_CUSTO"):
+        GuardaCusto().autorizar(tem_chave_explicita=True)
+
+
 def test_llm_fake_registra_chamadas():
     fake = LLMFake(respostas=["sim"])
     r1 = fake.gerar("sys", "pergunta", max_tokens=5)

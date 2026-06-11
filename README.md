@@ -16,7 +16,9 @@ o sistema responde honestamente que não encontrou, em vez de inventar.
 > 4 estratégias ficam ativas, incluindo a híbrida+rerank (recall@5 = 1,00 no golden).
 > **Use o vocabulário da norma** — há um manual de perguntas testadas em
 > [`docs/exemplos_de_perguntas.md`](docs/exemplos_de_perguntas.md) (a demo também traz
-> exemplos clicáveis).
+> exemplos clicáveis). A demo tem um toggle **Real — BYOK**: cole a sua chave Anthropic
+> para gerar com Haiku (você paga; chave só na sessão, nunca gravada). Na nuvem o modo
+> real roda sobre BM25 — pela eval, rende melhor **localmente** com o índice denso.
 
 Projeto 2 do portfólio de AI engineering — mesma disciplina do
 [agente-credito-langgraph](https://github.com/EnzoKoeche/agente-credito-langgraph):
@@ -25,7 +27,7 @@ caveats documentados.
 
 > **Status:** Fases 0–3 concluídas em sessão overnight autônoma (2026-06-11/12);
 > revisão da amostra do golden, validação real do Docker/compose e publicação em
-> 2026-06-11. **74 testes verdes**, cobertura **100%** nos módulos determinísticos
+> 2026-06-11. **76 testes verdes**, cobertura **100%** nos módulos determinísticos
 > (chunker, extrator, fusão RRF, BM25, citação/groundedness, guard de custo, grafo).
 > Retrieval: **híbrida+rerank recall@5 = 1,00 · MRR@10 = 0,91 · p50 322 ms** no golden
 > de 30 perguntas. Groundedness: **0 respostas sem citação válida · 3/3 recusas
@@ -136,7 +138,7 @@ cp .env.example .env                         # opcional (modo real)
 uv run python scripts/baixar_documentos.py   # corpus público → data/raw/ + manifesto SHA-256
 uv run python scripts/ingerir.py             # chunks estruturais + embeddings locais + índice
 
-uv run pytest -q                             # 74 testes (modo demo, sem custo)
+uv run pytest -q                             # 76 testes (modo demo, sem custo)
 uv run python eval/run_retrieval.py          # tabela comparativa → eval/results/RESULTS.md
 uv run python eval/run_groundedness.py       # grafo completo no golden
 uv run python eval/run_pagas.py              # DRY-RUN (pago só com --executar + guard)

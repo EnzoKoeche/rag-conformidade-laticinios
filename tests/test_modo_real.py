@@ -11,7 +11,7 @@ from rag_laticinios.grafo.dependencias import (
     ReformuladorLLM,
     dependencias_real,
 )
-from rag_laticinios.llm.cliente import LLMAnthropic, LLMFake
+from rag_laticinios.llm.cliente import GuardaCusto, LLMAnthropic, LLMFake
 
 CHUNK = {"chunk_id": "c1", "rotulo": "IN 76/2018, art. 7º", "texto": "Art. 7º CCS 500.000."}
 RESULTADO = {"origem": "hibrida_rerank", "score": 1.0, "chunk": CHUNK}
@@ -69,6 +69,16 @@ class _ClientFake:
         def create(**kwargs):
             _ClientFake.ultima = kwargs
             return _RespostaFake()
+
+
+def test_llm_anthropic_byok_usa_chave_do_visitante(monkeypatch):
+    """Na nuvem (sem env key e sem RAG_PERMITIR_CUSTO), o modo BYOK usa a chave que o
+    visitante colou — repassada ao SDK, nunca persistida — e autoriza pelo opt-in."""
+    monkeypatch.setattr(config, "RAG_PERMITIR_CUSTO", False)
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    llm = LLMAnthropic(guarda=GuardaCusto(permitir=True), api_key="sk-ant-teste-fake")
+    assert llm._client.api_key == "sk-ant-teste-fake"  # chegou ao SDK
+    assert llm._api_key == "sk-ant-teste-fake"
 
 
 def test_llm_anthropic_gerar_com_client_stub(monkeypatch):
