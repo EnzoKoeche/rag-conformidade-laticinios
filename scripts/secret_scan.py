@@ -48,13 +48,22 @@ def main() -> int:
     ).stdout
     achados = varrer(historico, "historico-git")
 
-    for arq in raiz.rglob("*"):
-        if arq.is_file() and ".git" not in arq.parts and ".venv" not in arq.parts \
-                and "data" not in arq.parts and arq.suffix not in (".npz", ".sqlite3", ".pdf", ".html"):
-            try:
-                achados += varrer(arq.read_text(errors="replace"), str(arq.relative_to(raiz)))
-            except (UnicodeDecodeError, OSError):
-                continue
+    # Árvore: SÓ o que o git versionaria — rastreados + não-rastreados não-ignorados.
+    # Assim arquivos gitignorados (.env com a chave real, .venv, data/) ficam de fora:
+    # eles não podem ir pro repo, e não faz sentido o scanner ler/imprimir um segredo
+    # que é local por design. Isto é o que protege a premissa nº 3 (nada de segredo NO repo).
+    versionaveis = subprocess.run(
+        ["git", "ls-files", "--cached", "--others", "--exclude-standard"],
+        cwd=raiz, capture_output=True, text=True,
+    ).stdout.splitlines()
+    for rel in versionaveis:
+        arq = raiz / rel
+        if arq.suffix in (".npz", ".sqlite3", ".pdf", ".html") or not arq.is_file():
+            continue
+        try:
+            achados += varrer(arq.read_text(errors="replace"), rel)
+        except (UnicodeDecodeError, OSError):
+            continue
 
     n_commits = subprocess.run(
         ["git", "rev-list", "--count", "--all"], cwd=raiz, capture_output=True, text=True

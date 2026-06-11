@@ -31,6 +31,20 @@ commits varridos: 13 | padrões: 9
 relatório (arquivo de texto sem segredos, conferível no diff); o push é feito logo
 após. Ambiente sem `.env` durante toda a sessão.
 
+## Correção do scanner — 2026-06-11 (tarde)
+
+Ao colar a chave real no `.env` (local, para a eval paga), o scanner **flagou o
+`.env`** — ele varria a árvore inteira com `rglob`, incluindo arquivos gitignorados, e
+chegou a imprimir um trecho da chave. Falha do scanner, não do repo: o `.env` está
+gitignorado desde o commit zero e **nunca** entrou em commit (verificado:
+`git log --all -- .env` vazio; `git ls-files` sem `.env`).
+
+Corrigido: a varredura da árvore passou a usar
+`git ls-files --cached --others --exclude-standard` — só arquivos que o git versionaria
+(rastreados + não-ignorados). Gitignorados (`.env`, `.venv/`, `data/`) ficam de fora,
+que é exatamente o conjunto que importa para "nenhum segredo NO repo". Pós-correção:
+**21 commits varridos, árvore limpa, 0 achados** — sem ler o `.env`.
+
 **O que isto prova:** nenhum segredo com formato conhecido entrou em nenhum commit.
 **O que NÃO prova:** segredo de formato exótico/custom não seria detectado pelos
 padrões; a varredura é por regex, não por entropia. O `.env` é ignorado desde o commit
