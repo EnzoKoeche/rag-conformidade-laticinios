@@ -36,12 +36,14 @@ manuais sem artigos, `artigo` carrega a referência de página, ex. `"p. 17"`.)*
   (b) números e termos-chave da `resposta_referencia` aparecem no texto cru dos chunks
   esperados; (c) schema válido e ids únicos. Golden inválido = suíte vermelha.
 - **5 itens com `revisao_humana: true`** — amostra estratificada (≥ 1 por categoria
-  difícil, priorizando `limite_numerico` e `multi_doc`) para o Enzo conferir amanhã,
-  marcando no próprio JSONL: `"revisado": "ok" | "corrigido"`.
+  difícil, priorizando `limite_numerico` e `multi_doc`), conferida contra o texto-fonte
+  e marcada no próprio JSONL: `"revisado": "ok" | "corrigido"`. **Feito em 2026-06-11**
+  (4 `ok`, G-12 `corrigido`) — veredito com citações em
+  [`revisoes/revisao-golden.md`](revisoes/revisao-golden.md).
 - **Viés conhecido (caveat):** autor das perguntas = autor do sistema, e as perguntas
   nascem dos próprios chunks → mede **comparação entre estratégias e regressão**, tende a
-  superestimar qualidade absoluta. Mitigação: revisão humana de amanhã + categorias
-  `sem_base` que punem otimismo.
+  superestimar qualidade absoluta. Mitigação: a revisão da amostra (acima) + categorias
+  `sem_base` que punem otimismo; paráfrases adversariais ficam como evolução.
 
 ## 2. Evals grátis de retrieval (o coração do portfólio)
 
