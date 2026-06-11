@@ -9,7 +9,11 @@
 - [x] Fase 1 — Ingestão e retrieval: 5 docs baixados (Wayback p/ fontes bloqueadas),
       685 chunks estruturais, 4 estratégias, golden 30 itens validado, EVAL-RET-01
       (híbrida+rerank recall@5=1,00 · MRR 0,91 · p50 181 ms) + `docs/revisoes/fase-1.md`
-- [ ] **Fase 2 — Grafo agêntico + evals grátis** (em andamento)
+- [x] Fase 2 — Grafo corrective RAG (LangGraph) com modo demo/real injetável, verificador
+      de groundedness real, guard de custo; EVAL-GRD-01 verde (0 violações de citação,
+      3/3 recusas honestas, p50 270 ms); dry-run pago US$0,005/pergunta de sistema;
+      72 testes, 100% cobertura nos módulos-alvo + `docs/revisoes/fase-2.md`
+- [ ] **Fase 3 — API, front, Docker, README, secret-scan** (em andamento)
 - [ ] Fase 2 — Grafo agêntico + evals grátis
 - [ ] Fase 3 — API, front, Docker, README, secret-scan
 
