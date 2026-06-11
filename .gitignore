@@ -27,8 +27,9 @@ data/processed/
 data/index/
 .chroma/
 
-# Cache de embeddings
+# Cache de embeddings e de modelos HF (container)
 data/cache/
+data/hf-cache/
 
 # IDE / SO
 .vscode/

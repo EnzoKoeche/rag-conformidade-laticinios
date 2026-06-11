@@ -1,0 +1,27 @@
+# Testes no CI: roda a suíte SEM corpus (os testes que exigem índice usam skipif) e
+# valida a cobertura dos módulos determinísticos.
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - run: uv sync --frozen
+      - run: >
+          uv run pytest tests/ -q
+          --cov=rag_laticinios.ingestao.chunker
+          --cov=rag_laticinios.ingestao.extrator
+          --cov=rag_laticinios.retrieval.fusao
+          --cov=rag_laticinios.retrieval.bm25
+          --cov=rag_laticinios.citacao
+          --cov=rag_laticinios.llm.cliente
+          --cov-fail-under=100

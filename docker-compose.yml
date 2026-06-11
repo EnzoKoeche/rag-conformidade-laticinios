@@ -1,0 +1,32 @@
+# app + vetor store (ADR-001: chroma embedded no dev; servidor http no compose)
+#
+# 1ª execução (fora do container, popula ./data):
+#   uv run python scripts/baixar_documentos.py && uv run python scripts/ingerir.py
+# Depois: docker compose up --build
+# Nota: o container baixa os modelos HF (~3 GB) na 1ª pergunta, para ./data/hf-cache
+# (persistido no volume; downloads seguintes usam o cache).
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      RAG_MODO: demo
+      CHROMA_MODE: http
+      CHROMA_HOST: chroma
+      CHROMA_PORT: 8000
+    volumes:
+      - ./data:/data
+      - ./data:/app/data
+    depends_on:
+      - chroma
+
+  chroma:
+    image: chromadb/chroma:latest
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma-data:/data
+
+volumes:
+  chroma-data:
