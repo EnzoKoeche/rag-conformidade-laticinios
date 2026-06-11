@@ -17,6 +17,20 @@ commits varridos: 8 | padrões: 9
 ✓ nenhum segredo encontrado no histórico nem na árvore atual
 ```
 
+## Re-scan pré-push — 2026-06-11 (manhã)
+
+Re-executado após os commits da sessão de revisão (golden revisado, fix densa,
+validação Docker, docs):
+
+```
+commits varridos: 13 | padrões: 9
+✓ nenhum segredo encontrado no histórico nem na árvore atual
+```
+
+`git log --stat` revisado. O commit seguinte a este re-scan adiciona apenas este
+relatório (arquivo de texto sem segredos, conferível no diff); o push é feito logo
+após. Ambiente sem `.env` durante toda a sessão.
+
 **O que isto prova:** nenhum segredo com formato conhecido entrou em nenhum commit.
 **O que NÃO prova:** segredo de formato exótico/custom não seria detectado pelos
 padrões; a varredura é por regex, não por entropia. O `.env` é ignorado desde o commit
