@@ -1,0 +1,15 @@
+{
+  "gerado_em": "2026-06-11T05:01:12+00:00",
+  "plano": {
+    "itens": 10,
+    "chamadas_api": 30,
+    "tokens_entrada_estimados": 88259,
+    "tokens_saida_estimados": 7520,
+    "custo_estimado_usd": 0.1259,
+    "custo_eval_por_item_usd": 0.0126,
+    "custo_sistema_por_pergunta_usd": 0.005,
+    "modelo": "claude-haiku-4-5",
+    "teto_usd": 0.5
+  },
+  "executado": false
+}

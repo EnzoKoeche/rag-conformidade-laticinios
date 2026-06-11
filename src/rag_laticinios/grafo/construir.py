@@ -60,14 +60,19 @@ def construir_grafo(retrieval, deps: dict, estrategia: str = "hibrida_rerank", k
         }
 
     def grade_chunks(estado: EstadoRAG) -> dict:
-        aprovados = [
-            r for r in estado["resultados"]
-            if deps["grader"].aprovar(estado["pergunta_atual"], r)
-        ]
+        # Relevância SEMPRE contra a pergunta ORIGINAL: a reformulação serve ao
+        # retrieval; usá-la no grading dilui o termo sem resposta e derrota a recusa
+        # honesta (achado da eval de groundedness, 2026-06-12).
+        grader = deps["grader"]
+        if hasattr(grader, "aprovar_lote"):
+            vereditos = grader.aprovar_lote(estado["pergunta"], estado["resultados"])
+        else:
+            vereditos = [grader.aprovar(estado["pergunta"], r) for r in estado["resultados"]]
+        aprovados = [r for r, ok in zip(estado["resultados"], vereditos) if ok]
         return {"aprovados": aprovados, "trace": estado["trace"] + [f"grade:{len(aprovados)}"]}
 
     def generate(estado: EstadoRAG) -> dict:
-        resposta = deps["gerador"].gerar(estado["pergunta_atual"], estado["aprovados"])
+        resposta = deps["gerador"].gerar(estado["pergunta"], estado["aprovados"])
         return {"resposta": resposta, "trace": estado["trace"] + ["generate"]}
 
     def verify_groundedness(estado: EstadoRAG) -> dict:

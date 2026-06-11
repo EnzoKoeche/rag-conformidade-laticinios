@@ -24,11 +24,22 @@ TERMOS_DOMINIO = {
 }
 
 
+# referência a norma (ex.: "IN 76/2018", "Decreto 9.013", "Portaria nº 368") é domínio
+RE_REF_NORMA = re.compile(
+    r"\b(in|instrucao normativa|decreto|portaria|resolucao)\s*\.?\s*n?[ºo°]?\s*\d",
+    re.IGNORECASE,
+)
+
+
 class ClassificadorLexico:
-    """Em domínio se a pergunta contém ≥1 termo do léxico (tokens sem acento)."""
+    """Em domínio se a pergunta contém ≥1 termo do léxico (tokens sem acento) ou
+    uma referência explícita a norma (achado da eval: 'IN 76/2018' não tem termo
+    lácteo, mas é claramente do domínio)."""
 
     def classificar(self, pergunta: str) -> bool:
-        return bool(set(tokenizar(pergunta)) & TERMOS_DOMINIO)
+        if set(tokenizar(pergunta)) & TERMOS_DOMINIO:
+            return True
+        return bool(RE_REF_NORMA.search(" ".join(tokenizar(pergunta) or [pergunta.lower()])))
 
 
 class ClassificadorLLM:
@@ -49,21 +60,39 @@ class ClassificadorLLM:
 # ---------------------------------------------------------------------- grader
 
 class GraderHeuristico:
-    """Demo: relevância por score do reranker local (quando houve rerank) ou por
-    sobreposição lexical com a pergunta. Determinístico."""
+    """Demo: relevância recalculada pelo cross-encoder local contra a pergunta
+    ORIGINAL (nunca a reformulada — o score do retrieval veio da query expandida e
+    dilui o termo sem resposta; achado da eval de groundedness, 2026-06-12). Sem
+    cross-encoder injetado, cai na sobreposição lexical. Determinístico, custo zero.
 
-    def __init__(self, limiar_rerank: float = 0.0, limiar_lexical: float = 0.12):
+    limiar_rerank=0.5 calibrado contra o golden em 2026-06-12: perguntas sem base
+    pontuam ≤ -0,17 no mMARCO; respondíveis ≥ +1,07 no top-1 — 0,5 separa com margem.
+    Caveat: calibração no próprio golden (n pequeno); o modo real usa grader LLM."""
+
+    def __init__(self, reranker=None, limiar_rerank: float = 0.5, limiar_lexical: float = 0.12):
+        self.reranker = reranker
         self.limiar_rerank = limiar_rerank
         self.limiar_lexical = limiar_lexical
 
-    def aprovar(self, pergunta: str, resultado: dict) -> bool:
-        if resultado.get("origem") == "hibrida_rerank":
-            return resultado["score"] >= self.limiar_rerank
+    def _aprovar_lexical(self, pergunta: str, resultado: dict) -> bool:
         termos_p = set(tokenizar(pergunta))
         termos_c = set(tokenizar(resultado["chunk"]["texto"]))
         if not termos_p:
             return False
         return len(termos_p & termos_c) / len(termos_p) >= self.limiar_lexical
+
+    def aprovar(self, pergunta: str, resultado: dict) -> bool:
+        return self.aprovar_lote(pergunta, [resultado])[0]
+
+    def aprovar_lote(self, pergunta: str, resultados: list[dict]) -> list[bool]:
+        if not resultados:
+            return []
+        if self.reranker is None:
+            return [self._aprovar_lexical(pergunta, r) for r in resultados]
+        self.reranker._carregar()
+        pares = [(pergunta, r["chunk"]["texto"]) for r in resultados]
+        scores = self.reranker._modelo.predict(pares)
+        return [float(s) >= self.limiar_rerank for s in scores]
 
 
 class GraderLLM:
@@ -196,10 +225,15 @@ class ReformuladorLLM:
 
 # ------------------------------------------------------------------- fábricas
 
-def dependencias_demo() -> dict:
+def dependencias_demo(com_reranker: bool = True) -> dict:
+    reranker = None
+    if com_reranker:
+        from rag_laticinios.retrieval.rerank import Reranker
+
+        reranker = Reranker()
     return {
         "classificador": ClassificadorLexico(),
-        "grader": GraderHeuristico(),
+        "grader": GraderHeuristico(reranker=reranker),
         "gerador": GeradorExtrativo(),
         "reformulador": ReformuladorSinonimos(),
     }
