@@ -13,13 +13,28 @@
       de groundedness real, guard de custo; EVAL-GRD-01 verde (0 violações de citação,
       3/3 recusas honestas, p50 270 ms); dry-run pago US$0,005/pergunta de sistema;
       72 testes, 100% cobertura nos módulos-alvo + `docs/revisoes/fase-2.md`
-- [ ] **Fase 3 — API, front, Docker, README, secret-scan** (em andamento)
-- [ ] Fase 2 — Grafo agêntico + evals grátis
-- [ ] Fase 3 — API, front, Docker, README, secret-scan
+- [x] Fase 3 — API FastAPI (/ask /ingest /health, validada com curl no índice real),
+      front Streamlit, Dockerfile + compose (app + chroma), CI GitHub Actions, README
+      final e secret-scan limpo + `docs/revisoes/fase-3.md`
+
+**Sessão overnight concluída.** 74 testes verdes · 10 commits · US$ 0,00 gastos em API ·
+NÃO foi feito push (decisão do brief: Enzo revisa e publica amanhã).
 
 ## Bloqueios
 
-Nenhum no momento.
+Nenhum. A sessão terminou limpa.
+
+## Para amanhã (Enzo)
+
+1. Revisar os **5 itens do golden** com `revisao_humana: true` (G-04, G-05, G-12, G-21,
+   G-23) e revalidar: `uv run python eval/golden/validar_golden.py`.
+2. Rodar as **evals pagas** com supervisão: `.env` com chave + `RAG_PERMITIR_CUSTO=1`,
+   depois `uv run python eval/run_pagas.py --executar` (estimativa US$ 0,126 · teto
+   US$ 0,50). Atenção a G-12/G-20/G-27 no modo real (falsos negativos do grader demo).
+3. Re-rodar `uv run python scripts/secret_scan.py`, revisar `git log --stat`, criar o
+   repo no GitHub e fazer o push.
+4. Opcional: `docker compose up --build` (build de imagem não executado nesta sessão).
+5. Log pronto para colar no Notion: `docs/log-notion.md`.
 
 ## Achados de ambiente (2026-06-11, noite)
 
