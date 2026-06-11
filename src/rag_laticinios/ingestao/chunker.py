@@ -29,6 +29,16 @@ RE_PARAGRAFO_LEGAL = re.compile(r"^(§|Parágrafo único|[IVXLC]+\s*[-–—]|[a
 RE_ANOTACAO_SOLTA = re.compile(r"^\((Revogad|Redação dada|Incluíd|Vide)[^)]*\)\s*$", re.IGNORECASE)
 MIN_CHARS_CHUNK_NAO_ARTIGO = 60  # descarta restos (assinaturas, marcas soltas) fora de artigo
 
+# Ficha catalográfica/créditos de publicações (Embrapa): ≥2 marcadores → não é conteúdo
+MARCADORES_CREDITOS = (
+    "ISBN", "CGPE", "Tiragem", "Exemplares desta publicação", "Caixa Postal",
+    "Fone:", "Impressão e acabamento", "Revisão de texto", "Diagramação",
+)
+
+
+def _eh_pagina_de_creditos(texto: str) -> bool:
+    return sum(1 for m in MARCADORES_CREDITOS if m in texto) >= 2
+
 def _eh_nome_de_header(t: str, eh_tabela: bool) -> bool:
     """Linha curta logo após TÍTULO/CAPÍTULO/Seção = nome do agrupador, não conteúdo."""
     return (
@@ -282,7 +292,8 @@ def chunk_manual(
         if sum(len(p) for p in pendente) >= min_chars_pagina:
             fechar(bloco.pagina)
     fechar(ultima_pagina)
-    return chunks
+    # Ficha catalográfica/créditos não viram chunk (achado da revisão da fase 1)
+    return [c for c in chunks if not _eh_pagina_de_creditos(c.texto)]
 
 
 def chunk_documento(

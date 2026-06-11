@@ -166,6 +166,16 @@ def test_manual_vazio():
     assert chunk_manual([], doc_id="m", doc_titulo="t") == []
 
 
+def test_manual_descarta_ficha_catalografica():
+    blocos = [
+        B("Exemplares desta publicação podem ser adquiridos na Embrapa. Caixa Postal 44 Fone: 79", pagina=1),
+        B("Conteúdo técnico real sobre a ordenha higiênica com tamanho suficiente para chunk próprio aqui.", pagina=2),
+    ]
+    chunks = chunk_manual(blocos, doc_id="m", doc_titulo="t", min_chars_pagina=50)
+    assert len(chunks) == 1
+    assert chunks[0].texto.startswith("Conteúdo técnico real")
+
+
 # ---------- chunk_documento ----------
 
 def test_chunk_documento_tipo_invalido():

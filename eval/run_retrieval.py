@@ -64,13 +64,12 @@ def main() -> int:
         print(f"avaliando: {estrategia} …")
         resultados[estrategia] = avaliar_estrategia(retrieval, itens, estrategia)
 
-    embedder = retrieval._densa.embedder
     contexto = {
         "data_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "n_itens_avaliados": len(itens),
         "n_chunks_indice": len(chunks),
-        "modelo_embedding": embedder.nome_modelo,
-        "modelo_rerank": retrieval._reranker.nome_modelo,
+        "modelo_embedding": retrieval.densa.embedder.nome_modelo,
+        "modelo_rerank": retrieval.reranker.nome_modelo,
         "k_busca": K_BUSCA,
         "hash_golden": hash_golden,
         "hardware": f"{platform.machine()} / CPU only / WSL2",

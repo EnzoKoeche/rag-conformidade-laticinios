@@ -6,7 +6,10 @@
 
 - [x] Sondagem de ambiente e rede
 - [x] Fase 0 — Engenharia de requisitos (7 docs em `docs/` + auto-revisão `docs/revisoes/fase-0.md`)
-- [ ] **Fase 1 — Ingestão e retrieval (4 estratégias)** (em andamento)
+- [x] Fase 1 — Ingestão e retrieval: 5 docs baixados (Wayback p/ fontes bloqueadas),
+      685 chunks estruturais, 4 estratégias, golden 30 itens validado, EVAL-RET-01
+      (híbrida+rerank recall@5=1,00 · MRR 0,91 · p50 181 ms) + `docs/revisoes/fase-1.md`
+- [ ] **Fase 2 — Grafo agêntico + evals grátis** (em andamento)
 - [ ] Fase 2 — Grafo agêntico + evals grátis
 - [ ] Fase 3 — API, front, Docker, README, secret-scan
 

@@ -1,8 +1,8 @@
 {
   "contexto": {
-    "data_utc": "2026-06-11T04:41:00+00:00",
+    "data_utc": "2026-06-11T04:43:18+00:00",
     "n_itens_avaliados": 27,
-    "n_chunks_indice": 688,
+    "n_chunks_indice": 685,
     "modelo_embedding": "BAAI/bge-m3",
     "modelo_rerank": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
     "k_busca": 10,
@@ -18,8 +18,8 @@
         "recall@10": 0.8888888888888888,
         "mrr@10": 0.7635802469135803,
         "hit_rate@10": 0.8888888888888888,
-        "latencia_p50_ms": 0.7732519879937172,
-        "latencia_p95_ms": 1.0270928061800078
+        "latencia_p50_ms": 0.7928690029075369,
+        "latencia_p95_ms": 1.2309930054470897
       },
       "posicoes_por_item": {
         "G-01": 1,
@@ -59,8 +59,8 @@
         "recall@10": 0.9629629629629629,
         "mrr@10": 0.8888888888888888,
         "hit_rate@10": 0.9629629629629629,
-        "latencia_p50_ms": 120.6959650007775,
-        "latencia_p95_ms": 131.51051019958686
+        "latencia_p50_ms": 38.78192900447175,
+        "latencia_p95_ms": 41.31481659715064
       },
       "posicoes_por_item": {
         "G-01": 2,
@@ -100,8 +100,8 @@
         "recall@10": 1.0,
         "mrr@10": 0.8680041152263374,
         "hit_rate@10": 1.0,
-        "latencia_p50_ms": 42.283321992727,
-        "latencia_p95_ms": 50.74154220346827
+        "latencia_p50_ms": 39.291178007260896,
+        "latencia_p95_ms": 41.88051219971385
       },
       "posicoes_por_item": {
         "G-01": 1,
@@ -141,8 +141,8 @@
         "recall@10": 1.0,
         "mrr@10": 0.9135802469135803,
         "hit_rate@10": 1.0,
-        "latencia_p50_ms": 179.79653899965342,
-        "latencia_p95_ms": 184.74859700072557
+        "latencia_p50_ms": 180.72421799297445,
+        "latencia_p95_ms": 188.87315439933445
       },
       "posicoes_por_item": {
         "G-01": 1,

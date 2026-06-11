@@ -18,15 +18,15 @@ class Retrieval:
     """Fachada única: `buscar(pergunta, estrategia, k)` → (resultados, métricas)."""
 
     def __init__(self, bm25: IndiceBM25, densa: BuscaDensa, reranker: Reranker | None = None):
-        self._bm25 = bm25
-        self._densa = densa
-        self._reranker = reranker or Reranker()
+        self.bm25 = bm25
+        self.densa = densa
+        self.reranker = reranker or Reranker()
 
     def _hibrida(self, pergunta: str, k: int) -> list[Resultado]:
         # listas maiores que k entram na fusão para dar chance a divergências
         n = max(k, config.TOP_N_PARA_RERANK)
-        r_bm25 = self._bm25.buscar(pergunta, k=n)
-        r_densa = self._densa.buscar(pergunta, k=n)
+        r_bm25 = self.bm25.buscar(pergunta, k=n)
+        r_densa = self.densa.buscar(pergunta, k=n)
         por_id = {r.chunk_id: r for r in [*r_densa, *r_bm25]}  # bm25 sobrescreve p/ ter chunk
         fundido = rrf([[r.chunk_id for r in r_bm25], [r.chunk_id for r in r_densa]])
         return [
@@ -47,14 +47,14 @@ class Retrieval:
             raise ValueError(f"estratégia desconhecida: {estrategia!r} (use {ESTRATEGIAS})")
         inicio = time.perf_counter()
         if estrategia == "bm25":
-            resultados = self._bm25.buscar(pergunta, k=k)
+            resultados = self.bm25.buscar(pergunta, k=k)
         elif estrategia == "densa":
-            resultados = self._densa.buscar(pergunta, k=k)
+            resultados = self.densa.buscar(pergunta, k=k)
         elif estrategia == "hibrida":
             resultados = self._hibrida(pergunta, k=k)
         else:  # hibrida_rerank
             candidatos = self._hibrida(pergunta, k=config.TOP_N_PARA_RERANK)
-            resultados = self._reranker.reordenar(pergunta, candidatos, top_k=k)
+            resultados = self.reranker.reordenar(pergunta, candidatos, top_k=k)
         latencia_ms = (time.perf_counter() - inicio) * 1000
         return resultados, {
             "estrategia": estrategia,
