@@ -1,0 +1,17 @@
+# SÓ para o deploy no Streamlit Community Cloud (demo pública, modo demo + BM25).
+# Fonte de verdade local é o pyproject.toml + uv.lock (uv sync).
+# torch CPU: a demo nunca carrega o modelo de embedding, mas o grader usa um
+# cross-encoder pequeno via sentence-transformers.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.12.0+cpu
+streamlit==1.58.0
+langgraph==1.2.4
+rank-bm25==0.2.2
+sentence-transformers==5.5.1
+chromadb==1.5.9
+anthropic==0.109.1
+pydantic==2.13.4
+beautifulsoup4==4.15.0
+pypdf==6.13.2
+numpy==2.4.6
+python-dotenv==1.2.2

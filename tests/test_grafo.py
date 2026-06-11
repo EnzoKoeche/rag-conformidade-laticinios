@@ -199,7 +199,9 @@ def test_e2e_indice_real_bm25():
             return []
 
     retrieval = Retrieval(IndiceBM25(carregar_chunks_jsonl()), _SemDensa())
-    app = construir_grafo(retrieval, dependencias_demo(), estrategia="bm25")
+    # com_reranker=False: grader lexical — cumpre o "sem carregar modelos" do
+    # docstring e permite rodar no CI (chunks.jsonl versionado, sem cache HF)
+    app = construir_grafo(retrieval, dependencias_demo(com_reranker=False), estrategia="bm25")
     saida = responder(app, "Qual o limite máximo de células somáticas do leite cru refrigerado?")
     assert saida["verificacao"]["aprovado"]
     assert any("art. 7º" in c["rotulo"] for c in saida["citacoes"])

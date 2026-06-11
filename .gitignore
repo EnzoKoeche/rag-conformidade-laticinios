@@ -19,9 +19,12 @@ htmlcov/
 .ruff_cache/
 
 # Dados brutos e processados (reproduzíveis via scripts/baixar_documentos.py +
-# scripts/ingerir.py; manifesto.json com URLs/SHA-256 é versionado)
+# scripts/ingerir.py; manifesto.json com URLs/SHA-256 é versionado).
+# chunks.jsonl (748 K, derivado de documentos públicos) é versionado para a demo
+# no Streamlit Cloud e p/ o CI validar golden + e2e bm25 sem rodar a ingestão.
 data/raw/
-data/processed/
+data/processed/*
+!data/processed/chunks.jsonl
 
 # Índices regeneráveis
 data/index/

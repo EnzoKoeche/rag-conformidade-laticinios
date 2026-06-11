@@ -35,6 +35,16 @@ def carregar_grafo(estrategia: str):
     return construir_grafo(retrieval, deps, estrategia=estrategia)
 
 
+@st.cache_resource(show_spinner=False)
+def estrategias_disponiveis() -> list[str]:
+    """Sem índice denso (ex.: demo no Streamlit Cloud, onde o BGE-m3 não cabe na
+    RAM), só BM25 — o modelo de embedding nunca chega a ser carregado."""
+    retrieval, _ = carregar_infra()
+    if retrieval.densa.store.contar() == 0:
+        return ["bm25"]
+    return list(ESTRATEGIAS)
+
+
 st.title("🥛 RAG de conformidade em laticínios")
 st.caption(
     "Respostas com **citação obrigatória** sobre IN 76/2018, IN 77/2018, RIISPOA e manuais "
@@ -43,7 +53,14 @@ st.caption(
 
 with st.sidebar:
     st.header("Configuração")
-    estrategia = st.selectbox("Estratégia de retrieval", ESTRATEGIAS, index=3)
+    opcoes = estrategias_disponiveis()
+    estrategia = st.selectbox("Estratégia de retrieval", opcoes, index=len(opcoes) - 1)
+    if len(opcoes) == 1:
+        st.caption(
+            "⚠️ Demo pública: índice denso indisponível — rodando **só BM25**. "
+            "Localmente (`scripts/ingerir.py`) as 4 estratégias ficam ativas "
+            "(híbrida+rerank: recall@5 = 1,00 no golden)."
+        )
     st.markdown(
         f"**Modo:** `{config.RAG_MODO}` (demo = gerador extrativo local, custo zero)\n\n"
         "A tabela comparativa das estratégias está em `eval/results/RESULTS.md`."

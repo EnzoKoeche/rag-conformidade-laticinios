@@ -73,8 +73,8 @@ embeddings locais `BAAI/bge-m3`, reranker `mmarco-mMiniLMv2-L12`, CPU/WSL2
 | Estratégia | recall@1 | recall@5 | recall@10 | MRR@10 | p50 |
 |---|---|---|---|---|---|
 | só BM25 | 0,70 | 0,85 | 0,89 | 0,76 | 1 ms |
-| só densa | 0,81 | **0,96** | 0,96 | 0,89 | 39 ms |
-| híbrida (RRF k=60) | 0,81 | 0,93 | 1,00 | 0,87 | 39 ms |
+| só densa | 0,81 | **0,96** | 0,96 | 0,89 | 42 ms |
+| híbrida (RRF k=60) | 0,81 | 0,93 | 1,00 | 0,87 | 45 ms |
 | **híbrida + rerank local** | **0,85** | **1,00** | **1,00** | **0,91** | 322 ms |
 
 Leitura honesta: a densa pura **supera a híbrida** em recall@5 neste golden (a fusão com
@@ -90,7 +90,7 @@ caveats abaixo.
 |---|---|---|
 | EVAL-RET-01 (`eval/run_retrieval.py`) | recall@k/MRR/latência das 4 estratégias | tabela acima; RNF-01 (recall@5 ≥ 0,80) ✓ |
 | EVAL-GRD-01 (`eval/run_groundedness.py`) | grafo completo no golden: contrato de citação + recusa honesta | **0 violações de citação** · **3/3 recusas honestas** · 24/24 respostas citando fonte esperada · p50 272 ms (RNF-02 ✓) |
-| Golden (`eval/golden/validar_golden.py`) | gabarito ancorado no corpus real (fontes resolvem, números no texto-fonte) | 30/30 válidos; 5 aguardam revisão humana |
+| Golden (`eval/golden/validar_golden.py`) | gabarito ancorado no corpus real (fontes resolvem, números no texto-fonte) | 30/30 válidos; amostra de 5 revisada contra o texto-fonte (4 `ok`, 1 corrigido — [`docs/revisoes/revisao-golden.md`](docs/revisoes/revisao-golden.md)) |
 
 **Pagas** (`eval/run_pagas.py` — implementação própria, juiz Haiku, ADR-012):
 faithfulness por linha + answer relevancy em 10 itens estratificados. **Dry-run é o
@@ -101,8 +101,8 @@ projetado). **Ainda não executadas** — ficam para revisão humana presente.
 
 **Caveats honestos:** o golden foi escrito pelo autor do sistema a partir dos próprios
 chunks → mede **comparação entre estratégias e regressão**, tende a superestimar
-qualidade absoluta (mitigação: 5 itens marcados para revisão humana; paráfrases
-adversariais ficam como evolução). O limiar do grader demo (0,5 no cross-encoder) foi
+qualidade absoluta (mitigação: amostra de 5 itens revisada contra o texto-fonte, com
+1 correção; paráfrases adversariais ficam como evolução). O limiar do grader demo (0,5 no cross-encoder) foi
 calibrado nesse mesmo golden e **custa 3/27 falsos negativos** (perguntas estilo
 "como define…", "por quê…") — escolha deliberada: nunca inventar > sempre responder; o
 grader LLM do modo real é medido nas evals pagas. O verificador de groundedness é
