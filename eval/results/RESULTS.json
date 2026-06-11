@@ -1,12 +1,12 @@
 {
   "contexto": {
-    "data_utc": "2026-06-11T04:43:18+00:00",
+    "data_utc": "2026-06-11T11:34:48+00:00",
     "n_itens_avaliados": 27,
     "n_chunks_indice": 685,
     "modelo_embedding": "BAAI/bge-m3",
     "modelo_rerank": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
     "k_busca": 10,
-    "hash_golden": "bf18bbad4912",
+    "hash_golden": "42d5fd7095f8",
     "hardware": "x86_64 / CPU only / WSL2"
   },
   "resultados": {
@@ -18,8 +18,8 @@
         "recall@10": 0.8888888888888888,
         "mrr@10": 0.7635802469135803,
         "hit_rate@10": 0.8888888888888888,
-        "latencia_p50_ms": 0.7928690029075369,
-        "latencia_p95_ms": 1.2309930054470897
+        "latencia_p50_ms": 0.9517160001450975,
+        "latencia_p95_ms": 1.3462447999245342
       },
       "posicoes_por_item": {
         "G-01": 1,
@@ -59,8 +59,8 @@
         "recall@10": 0.9629629629629629,
         "mrr@10": 0.8888888888888888,
         "hit_rate@10": 0.9629629629629629,
-        "latencia_p50_ms": 38.78192900447175,
-        "latencia_p95_ms": 41.31481659715064
+        "latencia_p50_ms": 41.79251900018244,
+        "latencia_p95_ms": 62.92373200003567
       },
       "posicoes_por_item": {
         "G-01": 2,
@@ -100,8 +100,8 @@
         "recall@10": 1.0,
         "mrr@10": 0.8680041152263374,
         "hit_rate@10": 1.0,
-        "latencia_p50_ms": 39.291178007260896,
-        "latencia_p95_ms": 41.88051219971385
+        "latencia_p50_ms": 44.28363900001386,
+        "latencia_p95_ms": 71.25182400000085
       },
       "posicoes_por_item": {
         "G-01": 1,
@@ -141,8 +141,8 @@
         "recall@10": 1.0,
         "mrr@10": 0.9135802469135803,
         "hit_rate@10": 1.0,
-        "latencia_p50_ms": 180.72421799297445,
-        "latencia_p95_ms": 188.87315439933445
+        "latencia_p50_ms": 322.28029299994887,
+        "latencia_p95_ms": 403.20339339991733
       },
       "posicoes_por_item": {
         "G-01": 1,

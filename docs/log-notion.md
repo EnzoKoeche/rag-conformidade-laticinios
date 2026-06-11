@@ -29,3 +29,30 @@
 2. Rodar evals pagas supervisionado: `uv run python eval/run_pagas.py --executar` (estimativa US$ 0,126, teto US$ 0,50) — conferir se o grader LLM resolve G-12/G-20/G-27.
 3. Secret-scan de novo + revisar `git log --stat` → criar repo e push.
 4. Opcional: build do Docker; deploy do Streamlit (como no projeto 1).
+
+---
+
+# Sessão 2026-06-11 (manhã) — revisão, Docker validado e publicação
+
+**Data:** 2026-06-11
+
+**O que foi feito:**
+
+- `2bb2d0f` revisão delegada da amostra do golden: 4 itens `ok`, **G-12 corrigido** (fidelidade ao art. 373 do RIISPOA); registro auditável com citações-fonte em `docs/revisoes/revisao-golden.md`; validador entende `revisado` (0 pendências)
+- `8d51e1b` fix(densa): cache de embeddings quente dispensa carregar o modelo + fluxo real de população do Chroma http documentado (compose/README)
+- **Docker validado ao vivo:** build ok → compose up → `/ingest` ×5 = 685 chunks no Chroma http em 3,8 s (cache npz do volume, sem download de modelo) → `/ask` bm25 e híbrida+rerank aprovados pelo verificador (1ª chamada baixa CE 0,5 GB / BGE-m3 2,3 GB p/ o volume, como documentado)
+- Evals re-medidas após as mudanças: **qualidade idêntica** (recall@5 1,00 · MRR 0,91 · 0 violações · 3/3 recusas honestas); latências do dia (rerank p50 322 ms, grafo p50 272 ms) sincronizadas no README
+- Secret-scan ×2 (histórico completo + árvore): **limpo**
+- **Push público:** github.com/EnzoKoeche/rag-conformidade-laticinios (repo criado via `gh` — api.github.com voltou a funcionar no WSL em 2026-06-11)
+
+**Decisões:**
+
+- Revisão do golden **delegada ao agente** por instrução do Enzo; cada veredito carrega a citação literal da fonte p/ re-auditoria rápida (G-04/G-05/G-21/G-23 `ok`, G-12 `corrigido`)
+- Latências publicadas = medição do dia na mesma máquina (322/272 ms); valores da noite (181/270 ms) preservados nos docs históricos de fase
+- Evals pagas **não executadas** (sem `.env`/chave no ambiente — regra: execução paga só com Enzo presente e custo autorizado)
+
+**Próximo passo:**
+
+1. Evals pagas com supervisão: `.env` + `RAG_PERMITIR_CUSTO=1` → `uv run python eval/run_pagas.py --executar` (US$ 0,126 estimado, teto US$ 0,50); conferir G-12/G-20/G-27 no grader LLM.
+2. Opcional: re-auditar a revisão delegada (`docs/revisoes/revisao-golden.md`).
+3. Opcional: deploy do Streamlit no Community Cloud + screenshot no README.

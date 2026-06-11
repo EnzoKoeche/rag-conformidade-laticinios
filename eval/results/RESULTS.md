@@ -1,13 +1,13 @@
 # EVAL-RET-01 — Comparativo de estratégias de retrieval
 
-Golden: **27 perguntas respondíveis** (hash `bf18bbad4912`) · índice: **685 chunks** · embeddings: `BAAI/bge-m3` · reranker: `cross-encoder/mmarco-mMiniLMv2-L12-H384-v1` · k=10 · 2026-06-11T04:43:18+00:00 · x86_64 / CPU only / WSL2
+Golden: **27 perguntas respondíveis** (hash `42d5fd7095f8`) · índice: **685 chunks** · embeddings: `BAAI/bge-m3` · reranker: `cross-encoder/mmarco-mMiniLMv2-L12-H384-v1` · k=10 · 2026-06-11T11:34:48+00:00 · x86_64 / CPU only / WSL2
 
 | Estratégia | recall@1 | recall@3 | recall@5 | recall@10 | MRR@10 | p50 (ms) | p95 (ms) |
 |---|---|---|---|---|---|---|---|
 | bm25 | 0.70 | 0.78 | **0.85** | 0.89 | 0.76 | 1 | 1 |
-| densa | 0.81 | 0.96 | **0.96** | 0.96 | 0.89 | 39 | 41 |
-| hibrida | 0.81 | 0.89 | **0.93** | 1.00 | 0.87 | 39 | 42 |
-| hibrida_rerank | 0.85 | 1.00 | **1.00** | 1.00 | 0.91 | 181 | 189 |
+| densa | 0.81 | 0.96 | **0.96** | 0.96 | 0.89 | 42 | 63 |
+| hibrida | 0.81 | 0.89 | **0.93** | 1.00 | 0.87 | 44 | 71 |
+| hibrida_rerank | 0.85 | 1.00 | **1.00** | 1.00 | 0.91 | 322 | 403 |
 
 ## recall@5 por categoria
 

@@ -11,10 +11,11 @@ Projeto 2 do portfólio de AI engineering — mesma disciplina do
 requisitos antes de código, eval antes de implementação, custo/latência medidos e
 caveats documentados.
 
-> **Status:** Fases 0–3 concluídas em sessão overnight autônoma (2026-06-11/12).
-> **74 testes verdes**, cobertura **100%** nos módulos determinísticos (chunker,
-> extrator, fusão RRF, BM25, citação/groundedness, guard de custo, grafo).
-> Retrieval: **híbrida+rerank recall@5 = 1,00 · MRR@10 = 0,91 · p50 181 ms** no golden
+> **Status:** Fases 0–3 concluídas em sessão overnight autônoma (2026-06-11/12);
+> revisão da amostra do golden, validação real do Docker/compose e publicação em
+> 2026-06-11. **74 testes verdes**, cobertura **100%** nos módulos determinísticos
+> (chunker, extrator, fusão RRF, BM25, citação/groundedness, guard de custo, grafo).
+> Retrieval: **híbrida+rerank recall@5 = 1,00 · MRR@10 = 0,91 · p50 322 ms** no golden
 > de 30 perguntas. Groundedness: **0 respostas sem citação válida · 3/3 recusas
 > honestas**. Evals pagas implementadas com dry-run — execução fica para revisão humana.
 
@@ -74,7 +75,7 @@ embeddings locais `BAAI/bge-m3`, reranker `mmarco-mMiniLMv2-L12`, CPU/WSL2
 | só BM25 | 0,70 | 0,85 | 0,89 | 0,76 | 1 ms |
 | só densa | 0,81 | **0,96** | 0,96 | 0,89 | 39 ms |
 | híbrida (RRF k=60) | 0,81 | 0,93 | 1,00 | 0,87 | 39 ms |
-| **híbrida + rerank local** | **0,85** | **1,00** | **1,00** | **0,91** | 181 ms |
+| **híbrida + rerank local** | **0,85** | **1,00** | **1,00** | **0,91** | 322 ms |
 
 Leitura honesta: a densa pura **supera a híbrida** em recall@5 neste golden (a fusão com
 BM25 às vezes rebaixa o acerto denso; o rerank recupera). O recall@5 = 1,00 diz mais
@@ -88,7 +89,7 @@ caveats abaixo.
 | Eval | Cobre | Resultado |
 |---|---|---|
 | EVAL-RET-01 (`eval/run_retrieval.py`) | recall@k/MRR/latência das 4 estratégias | tabela acima; RNF-01 (recall@5 ≥ 0,80) ✓ |
-| EVAL-GRD-01 (`eval/run_groundedness.py`) | grafo completo no golden: contrato de citação + recusa honesta | **0 violações de citação** · **3/3 recusas honestas** · 24/24 respostas citando fonte esperada · p50 270 ms (RNF-02 ✓) |
+| EVAL-GRD-01 (`eval/run_groundedness.py`) | grafo completo no golden: contrato de citação + recusa honesta | **0 violações de citação** · **3/3 recusas honestas** · 24/24 respostas citando fonte esperada · p50 272 ms (RNF-02 ✓) |
 | Golden (`eval/golden/validar_golden.py`) | gabarito ancorado no corpus real (fontes resolvem, números no texto-fonte) | 30/30 válidos; 5 aguardam revisão humana |
 
 **Pagas** (`eval/run_pagas.py` — implementação própria, juiz Haiku, ADR-012):

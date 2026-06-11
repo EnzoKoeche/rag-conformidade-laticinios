@@ -1,12 +1,12 @@
 {
-  "data_utc": "2026-06-11T05:00:31+00:00",
+  "data_utc": "2026-06-11T11:35:30+00:00",
   "modo": "demo (gerador extrativo; verificador real)",
   "violacoes_citacao": 0,
   "recusas_honestas_sem_base": "3/3",
   "taxa_resposta_respondiveis": "24/27",
   "respostas_citando_fonte_esperada": "24/24",
-  "latencia_p50_ms": 269.6,
-  "latencia_p95_ms": 8128.5,
+  "latencia_p50_ms": 272.0,
+  "latencia_p95_ms": 6029.1,
   "detalhes": {
     "G-01": "ok_fonte_esperada",
     "G-02": "ok_fonte_esperada",
